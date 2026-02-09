@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 
 import { loadScript } from '../resources';
 
-const testJsPath =
-  'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js';
+// Use a data URL to avoid network access in unit tests.
+const testJsPath = 'data:text/javascript,window.__VBEN_LOAD_SCRIPT_TEST__=true';
 
 describe('loadScript', () => {
   beforeEach(() => {

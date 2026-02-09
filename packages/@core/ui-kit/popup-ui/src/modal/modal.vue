@@ -54,6 +54,9 @@ const wrapperRef = ref<HTMLElement>();
 const dialogRef = ref();
 const headerRef = ref();
 const footerRef = ref();
+// wrapperRef/footerRef 仅用于模板 ref 绑定（用于需要时访问滚动/页脚容器）
+void wrapperRef.value;
+void footerRef.value;
 
 const id = useId();
 

@@ -35,6 +35,8 @@ const {
   scrollIsAtRight,
   showScrollButton,
 } = useTabsViewScroll(props);
+// scrollbarRef 仅用于模板 ref 绑定（供滚动控制逻辑使用）
+void scrollbarRef.value;
 
 function onWheel(e: WheelEvent) {
   if (props.wheelable) {

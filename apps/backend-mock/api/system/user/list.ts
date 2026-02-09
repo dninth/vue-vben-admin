@@ -56,13 +56,17 @@ export default eventHandler(async (event) => {
   if (email) {
     const q = String(email).toLowerCase();
     list = list.filter((item) =>
-      String(item.email ?? '').toLowerCase().includes(q),
+      String(item.email ?? '')
+        .toLowerCase()
+        .includes(q),
     );
   }
   if (remark) {
     const q = String(remark).toLowerCase();
     list = list.filter((item) =>
-      String(item.remark ?? '').toLowerCase().includes(q),
+      String(item.remark ?? '')
+        .toLowerCase()
+        .includes(q),
     );
   }
   if (startTime) {

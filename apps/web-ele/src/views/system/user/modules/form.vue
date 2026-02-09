@@ -45,11 +45,8 @@ async function onSubmit() {
   drawerApi.lock();
   try {
     const values = await formApi.getValues<SystemUserApi.UserUpsertPayload>();
-    if (formData.value?.id !== undefined) {
-      await updateUser(formData.value.id, values);
-    } else {
-      await createUser(values);
-    }
+    const id = formData.value?.id;
+    await (id === undefined ? createUser(values) : updateUser(id, values));
     emit('success');
     drawerApi.close();
   } catch {
@@ -60,9 +57,9 @@ async function onSubmit() {
 }
 
 const getDrawerTitle = computed(() =>
-  formData.value?.id !== undefined
-    ? $t('ui.actionTitle.edit', [$t('system.user.name')])
-    : $t('ui.actionTitle.create', [$t('system.user.name')]),
+  formData.value?.id === undefined
+    ? $t('ui.actionTitle.create', [$t('system.user.name')])
+    : $t('ui.actionTitle.edit', [$t('system.user.name')]),
 );
 </script>
 

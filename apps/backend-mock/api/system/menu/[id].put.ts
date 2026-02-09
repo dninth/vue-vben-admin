@@ -1,8 +1,17 @@
-import { defineEventHandler, getRouterParam, readBody, setResponseStatus } from 'h3';
+import {
+  defineEventHandler,
+  getRouterParam,
+  readBody,
+  setResponseStatus,
+} from 'h3';
 
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { updateMenu } from '~/utils/system-store';
-import { unAuthorizedResponse, useResponseError, useResponseSuccess } from '~/utils/response';
+import {
+  unAuthorizedResponse,
+  useResponseError,
+  useResponseSuccess,
+} from '~/utils/response';
 
 export default defineEventHandler(async (event) => {
   const userinfo = verifyAccessToken(event);
@@ -25,4 +34,3 @@ export default defineEventHandler(async (event) => {
 
   return useResponseSuccess(updated);
 });
-

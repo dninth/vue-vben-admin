@@ -1,8 +1,17 @@
-import { defineEventHandler, getRouterParam, readBody, setResponseStatus } from 'h3';
+import {
+  defineEventHandler,
+  getRouterParam,
+  readBody,
+  setResponseStatus,
+} from 'h3';
 
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { updateUser } from '~/utils/system-store';
-import { unAuthorizedResponse, useResponseError, useResponseSuccess } from '~/utils/response';
+import {
+  unAuthorizedResponse,
+  useResponseError,
+  useResponseSuccess,
+} from '~/utils/response';
 
 export default defineEventHandler(async (event) => {
   const userinfo = verifyAccessToken(event);
@@ -19,7 +28,11 @@ export default defineEventHandler(async (event) => {
   const body = await readBody<Record<string, any>>(event);
   const updated = updateUser(id, {
     ...body,
-    roles: Array.isArray(body?.roles) ? body.roles : body?.roles ? [body.roles] : undefined,
+    roles: Array.isArray(body?.roles)
+      ? body.roles
+      : body?.roles
+        ? [body.roles]
+        : undefined,
   } as any);
 
   if (!updated) {
@@ -30,4 +43,3 @@ export default defineEventHandler(async (event) => {
   const { password: _pwd, ...rest } = updated as any;
   return useResponseSuccess(rest);
 });
-

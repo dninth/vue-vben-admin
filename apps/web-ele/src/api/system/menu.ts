@@ -71,19 +71,13 @@ export namespace SystemMenuApi {
     status?: 0 | 1;
   }
 
-  export type MenuUpsertPayload = Pick<SystemMenu, 'name' | 'type'> &
-    Partial<
-      Pick<
-        SystemMenu,
-        | 'authCode'
-        | 'component'
-        | 'meta'
-        | 'path'
-        | 'pid'
-        | 'redirect'
-        | 'status'
-      >
-    >;
+  export type MenuUpsertPayload = Partial<
+    Pick<
+      SystemMenu,
+      'authCode' | 'component' | 'meta' | 'path' | 'pid' | 'redirect' | 'status'
+    >
+  > &
+    Pick<SystemMenu, 'name' | 'type'>;
 }
 
 function walkMenus(
@@ -154,4 +148,3 @@ export async function updateMenu(
 export async function deleteMenu(id: number | string) {
   return requestClient.delete(`/system/menu/${id}`);
 }
-

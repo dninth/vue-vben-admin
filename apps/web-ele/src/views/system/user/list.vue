@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import type { Recordable } from '@vben/types';
 
-import type {
-  OnActionClickParams,
-  VxeTableGridOptions,
-} from '#/adapter/vxe-table';
+import type { OnActionClickParams } from '#/adapter/vxe-table';
 import type { SystemUserApi } from '#/api/system/user';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
@@ -36,11 +33,14 @@ const [Grid, gridApi] = useVbenVxeGrid({
     keepSource: true,
     proxyConfig: {
       ajax: {
-        query: async ({ page }, formValues) => {
+        query: async (
+          { page }: { page: { currentPage: number; pageSize: number } },
+          formValues: Recordable<any>,
+        ) => {
           return await getUserList({
             page: page.currentPage,
             pageSize: page.pageSize,
-            ...(formValues as Recordable<any>),
+            ...formValues,
           });
         },
       },
@@ -55,7 +55,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
       search: true,
       zoom: true,
     },
-  } as VxeTableGridOptions<SystemUserApi.SystemUser>,
+  },
 });
 
 function onActionClick(e: OnActionClickParams<SystemUserApi.SystemUser>) {

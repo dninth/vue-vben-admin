@@ -27,6 +27,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {});
 
 const { contentElement, overlayStyle } = useLayoutContentStyle();
+// contentElement 仅用于模板 ref 绑定（否则 ResizeObserver 无法工作）
+void contentElement.value;
 
 const style = computed((): CSSProperties => {
   const {

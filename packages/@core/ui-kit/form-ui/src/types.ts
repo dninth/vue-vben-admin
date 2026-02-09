@@ -165,7 +165,7 @@ export interface FormCommonConfig {
    */
   disabledOnInputListener?: boolean;
   /**
-   * 所有表单项的空状态值,默认都是undefined，naive-ui的空状态值是null
+   * 所有表单项的空状态值，默认是 undefined（如需显式空值可设为 null）
    */
   emptyStateValue?: null | undefined;
   /**

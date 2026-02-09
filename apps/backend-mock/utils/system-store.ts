@@ -89,8 +89,7 @@ export function getUsers() {
 export function createUser(
   payload: Omit<UserInfo, 'id' | 'password'> & Partial<Pick<UserInfo, 'id'>>,
 ) {
-  const id =
-    payload.id ?? maxNumericId(users.map((u) => u.id)) + 1;
+  const id = payload.id ?? maxNumericId(users.map((u) => u.id)) + 1;
   const user: UserInfo = {
     createTime: payload.createTime ?? nowText(),
     email: payload.email ?? '',
@@ -129,7 +128,9 @@ export function getRoles() {
   return roles;
 }
 
-export function createRole(payload: Partial<SystemRoleItem> & Pick<SystemRoleItem, 'name'>) {
+export function createRole(
+  payload: Partial<SystemRoleItem> & Pick<SystemRoleItem, 'name'>,
+) {
   const id = maxNumericId(roles.map((r) => r.id)) + 1;
   const role: SystemRoleItem = {
     createTime: payload.createTime ?? nowText(),
@@ -162,7 +163,9 @@ export function getMenus() {
   return menus;
 }
 
-export function createMenu(payload: Partial<SystemMenuItem> & Pick<SystemMenuItem, 'name' | 'type'>) {
+export function createMenu(
+  payload: Partial<SystemMenuItem> & Pick<SystemMenuItem, 'name' | 'type'>,
+) {
   const ids: IdLike[] = [];
   walkMenus(menus, (m) => ids.push(m.id));
   const id = maxNumericId(ids) + 1;

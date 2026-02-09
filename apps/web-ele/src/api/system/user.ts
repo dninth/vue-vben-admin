@@ -16,11 +16,10 @@ export namespace SystemUserApi {
     username: string;
   }
 
-  export type UserUpsertPayload = Pick<
-    SystemUser,
-    'email' | 'realName' | 'roles' | 'username'
+  export type UserUpsertPayload = Partial<
+    Pick<SystemUser, 'createTime' | 'homePath' | 'remark' | 'status'>
   > &
-    Partial<Pick<SystemUser, 'homePath' | 'remark' | 'status' | 'createTime'>>;
+    Pick<SystemUser, 'email' | 'realName' | 'roles' | 'username'>;
 }
 
 /**
@@ -50,4 +49,3 @@ export async function updateUser(
 export async function deleteUser(id: number | string) {
   return requestClient.delete(`/system/user/${id}`);
 }
-

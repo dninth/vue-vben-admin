@@ -58,11 +58,8 @@ async function onSubmit() {
   drawerApi.lock();
   try {
     const values = await formApi.getValues<SystemRoleApi.RoleUpsertPayload>();
-    if (formData.value?.id) {
-      await updateRole(formData.value.id, values);
-    } else {
-      await createRole(values);
-    }
+    const id = formData.value?.id;
+    await (id ? updateRole(id, values) : createRole(values));
     emit('success');
     drawerApi.close();
   } catch {

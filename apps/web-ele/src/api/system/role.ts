@@ -13,8 +13,10 @@ export namespace SystemRoleApi {
     status: 0 | 1;
   }
 
-  export type RoleUpsertPayload = Pick<SystemRole, 'name'> &
-    Partial<Pick<SystemRole, 'createTime' | 'permissions' | 'remark' | 'status'>>;
+  export type RoleUpsertPayload = Partial<
+    Pick<SystemRole, 'createTime' | 'permissions' | 'remark' | 'status'>
+  > &
+    Pick<SystemRole, 'name'>;
 }
 
 /**
@@ -44,4 +46,3 @@ export async function updateRole(
 export async function deleteRole(id: number | string) {
   return requestClient.delete(`/system/role/${id}`);
 }
-

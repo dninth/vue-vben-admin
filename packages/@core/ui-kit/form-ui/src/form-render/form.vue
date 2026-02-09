@@ -54,6 +54,8 @@ const wrapperClass = computed(() => {
 provideFormRenderProps(props);
 
 const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
+// wrapperRef 通过模板 ref 赋值，避免 TS/ESLint 认为未使用
+void wrapperRef.value;
 
 const shapes = computed(() => {
   const resultShapes: FormShape[] = [];

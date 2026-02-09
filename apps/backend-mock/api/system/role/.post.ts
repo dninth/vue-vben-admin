@@ -2,7 +2,11 @@ import { defineEventHandler, readBody, setResponseStatus } from 'h3';
 
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { createRole } from '~/utils/system-store';
-import { unAuthorizedResponse, useResponseError, useResponseSuccess } from '~/utils/response';
+import {
+  unAuthorizedResponse,
+  useResponseError,
+  useResponseSuccess,
+} from '~/utils/response';
 
 export default defineEventHandler(async (event) => {
   const userinfo = verifyAccessToken(event);
@@ -18,9 +22,12 @@ export default defineEventHandler(async (event) => {
 
   const created = createRole({
     ...body,
-    permissions: Array.isArray(body.permissions) ? body.permissions : body.permissions ? [body.permissions] : [],
+    permissions: Array.isArray(body.permissions)
+      ? body.permissions
+      : body.permissions
+        ? [body.permissions]
+        : [],
   } as any);
 
   return useResponseSuccess(created);
 });
-

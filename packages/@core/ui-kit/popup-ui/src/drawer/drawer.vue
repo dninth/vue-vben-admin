@@ -55,6 +55,8 @@ const id = useId();
 provide('DISMISSABLE_DRAWER_ID', id);
 
 const wrapperRef = ref<HTMLElement>();
+// wrapperRef 仅用于模板 ref 绑定（用于需要时访问滚动容器）
+void wrapperRef.value;
 const { $t } = useSimpleLocale();
 const { isMobile } = useIsMobile();
 

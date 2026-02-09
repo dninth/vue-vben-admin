@@ -71,18 +71,20 @@ const schema: VbenFormSchema[] = [
     componentProps: {
       api: getMenuList,
       afterFetch: (data: SystemMenuApi.SystemMenu[]) => {
-        const walk = (node: SystemMenuApi.SystemMenu): SystemMenuApi.SystemMenu => {
+        const walk = (
+          node: SystemMenuApi.SystemMenu,
+        ): SystemMenuApi.SystemMenu => {
           const titleKey = node.meta?.title;
           const label = titleKey ? $t(titleKey) : node.name;
           return {
             ...node,
             __titleLabel: label,
             ...(node.children && node.children.length > 0
-              ? { children: node.children.map(walk) }
+              ? { children: node.children.map((child) => walk(child)) }
               : {}),
           };
         };
-        return Array.isArray(data) ? data.map(walk) : data;
+        return Array.isArray(data) ? data.map((node) => walk(node)) : data;
       },
       class: 'w-full',
       childrenField: 'children',
@@ -465,8 +467,7 @@ async function onSubmit() {
   if (!valid) return;
 
   drawerApi.lock();
-  const data =
-    await formApi.getValues<SystemMenuApi.MenuUpsertPayload>();
+  const data = await formApi.getValues<SystemMenuApi.MenuUpsertPayload>();
 
   if (data.type === 'link') {
     data.meta = { ...data.meta, link: (data as Recordable<any>).linkSrc };
@@ -476,11 +477,8 @@ async function onSubmit() {
   delete (data as Recordable<any>).linkSrc;
 
   try {
-    if (formData.value?.id) {
-      await updateMenu(formData.value.id, data);
-    } else {
-      await createMenu(data);
-    }
+    const id = formData.value?.id;
+    await (id ? updateMenu(id, data) : createMenu(data));
     drawerApi.close();
     emit('success');
   } catch {

@@ -139,13 +139,22 @@ const customConfig: Linter.Config[] = [
   },
   // 后端模拟代码，不需要太多规则
   {
-    files: ['apps/backend-mock/**/**', 'docs/**/**'],
+    files: ['apps/backend-mock/**/**'],
     rules: {
       '@typescript-eslint/no-extraneous-class': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
       'n/no-extraneous-import': 'off',
       'n/prefer-global/buffer': 'off',
       'n/prefer-global/process': 'off',
       'no-console': 'off',
+      'perfectionist/sort-array-includes': 'off',
+      'perfectionist/sort-imports': 'off',
+      'perfectionist/sort-union-types': 'off',
+      'unicorn/consistent-existence-index-check': 'off',
+      'unicorn/no-for-loop': 'off',
+      'unicorn/no-lonely-if': 'off',
+      'unicorn/no-nested-ternary': 'off',
+      'unicorn/prefer-native-coercion-functions': 'off',
       'unicorn/prefer-module': 'off',
     },
   },

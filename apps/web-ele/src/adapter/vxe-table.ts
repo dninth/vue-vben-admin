@@ -92,7 +92,7 @@ setupVbenVxeTable({
         const tagItem = tagOptions.find((item) => item.value === value);
         const { label, value: _val, color, ...rest } = tagItem ?? {};
 
-        // 兼容 playground 里的 color: 'error' 写法
+        // 兼容历史配置里的 color: 'error' 写法
         const normalized =
           color && !rest.type
             ? { ...rest, type: color === 'error' ? 'danger' : color }
@@ -237,9 +237,7 @@ setupVbenVxeTable({
               default: () => {
                 const content = [];
                 if (icon) {
-                  content.push(
-                    h(IconifyIcon, { class: 'size-5', icon }),
-                  );
+                  content.push(h(IconifyIcon, { class: 'size-5', icon }));
                 }
                 content.push(text);
                 return content;

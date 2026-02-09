@@ -42,7 +42,9 @@ export default eventHandler(async (event) => {
   if (remark) {
     const q = String(remark).toLowerCase();
     list = list.filter((item) =>
-      String(item.remark ?? '').toLowerCase().includes(q),
+      String(item.remark ?? '')
+        .toLowerCase()
+        .includes(q),
     );
   }
   if (startTime) {

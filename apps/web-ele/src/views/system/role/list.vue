@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import type { Recordable } from '@vben/types';
 
-import type {
-  OnActionClickParams,
-  VxeTableGridOptions,
-} from '#/adapter/vxe-table';
+import type { OnActionClickParams } from '#/adapter/vxe-table';
 import type { SystemRoleApi } from '#/api/system/role';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
@@ -36,7 +33,10 @@ const [Grid, gridApi] = useVbenVxeGrid({
     keepSource: true,
     proxyConfig: {
       ajax: {
-        query: async ({ page }, formValues) => {
+        query: async (
+          { page }: { page: { currentPage: number; pageSize: number } },
+          formValues: Recordable<any>,
+        ) => {
           return await getRoleList({
             page: page.currentPage,
             pageSize: page.pageSize,
@@ -55,7 +55,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
       search: true,
       zoom: true,
     },
-  } as VxeTableGridOptions<SystemRoleApi.SystemRole>,
+  },
 });
 
 function onActionClick(e: OnActionClickParams<SystemRoleApi.SystemRole>) {
@@ -75,10 +75,7 @@ function onActionClick(e: OnActionClickParams<SystemRoleApi.SystemRole>) {
  * 状态开关即将改变
  * @returns 返回 false 则中止改变，返回其他值（undefined/true）则允许改变
  */
-async function onStatusChange(
-  newStatus: 0 | 1,
-  row: SystemRoleApi.SystemRole,
-) {
+async function onStatusChange(newStatus: 0 | 1, row: SystemRoleApi.SystemRole) {
   const statusText: Recordable<string> = {
     0: $t('common.disabled'),
     1: $t('common.enabled'),

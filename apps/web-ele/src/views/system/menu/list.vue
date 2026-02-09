@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import type {
-  OnActionClickParams,
-  VxeTableGridOptions,
-} from '#/adapter/vxe-table';
+import type { OnActionClickParams } from '#/adapter/vxe-table';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { IconifyIcon, Plus } from '@vben/icons';
@@ -53,7 +50,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
       rowField: 'id',
       transform: false,
     },
-  } as VxeTableGridOptions,
+  },
 });
 
 function onActionClick({
